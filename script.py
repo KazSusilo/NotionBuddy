@@ -33,6 +33,7 @@ def extract_block_sets_reps(content):
             data.append((block_id, block, sets, reps))
     return data
 
+
 def gym_database_properties():
     payload = {
         "properties": {

@@ -50,30 +50,6 @@ def get_database_metadata(database_id):
     parent_page_id = data["parent"]["page_id"]  # page where database is
     return database_name, parent_page_id
 
-def create_database(parent_page_id, database_name, database_properties):
-    url = "https://api.notion.com/v1/databases"
-    payload = {
-        "parent": {"type": "page_id", "page_id": parent_page_id},
-        "title": [{"text": {"content": database_name}}],
-        "is_inline": True,
-        "properties": database_properties,
-    }
-    
-    response = requests.post(url, headers=HEADERS, data=json.dumps(payload))
-    if response.status_code != 200:
-        print("Error creating gym database:", response.text)
-        return None
-    return response.json()["id"]
-
-def sort_database(database_id, database_sorts):
-    url = f"https://api.notion.com/v1/databases/{database_id}/query"
-    payload = {
-        "parent": {"database_id": database_id},
-        "sorts": database_sorts
-    }
-    response = requests.post(url, headers=HEADERS, data=json.dumps(payload))
-    return response.json()
-
 def append_database_item(database_id, content):
     url = "https://api.notion.com/v1/pages"
     payload = {
